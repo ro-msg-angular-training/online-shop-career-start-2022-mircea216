@@ -1,7 +1,10 @@
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { Observable, of } from 'rxjs';
-import { Product, products } from '../products';
+import { Product, products, ProductViewModel } from '../products';
+import { HttpClient } from "@angular/common/http";
+import { url } from '../utils';
+
 
 @Component({
   selector: 'app-product-details',
@@ -10,24 +13,17 @@ import { Product, products } from '../products';
 })
 export class ProductDetailsComponent implements OnInit {
   product: Product | undefined;
-  productsList = products;
-
-  constructor(private route: ActivatedRoute) {
+  selectedID: number | undefined;
+  constructor(private http: HttpClient, private route: ActivatedRoute) {
 
   }
 
   ngOnInit(): void {
-    this.getProduct();
-  }
-
-  getProduct(): void {
-    const id = Number(this.route.snapshot.paramMap.get('id'));
-    this.getProductById(id).subscribe(product => this.product = product);
-
+    const id = this.route.snapshot.params['id'];
+    this.getProductById(id).subscribe((item: Product) => this.product = item);
   }
 
   getProductById(id: number): Observable<Product> {
-    const product = this.productsList.find(item => item.id === id)!;
-    return of(product);
+    return this.http.get<Product>(`${url}/products/${id}`);
   }
 }

@@ -1,8 +1,7 @@
 import { Component, OnInit } from '@angular/core';
-import { ActivatedRoute } from '@angular/router';
 import { Observable } from 'rxjs';
-import { HttpClient, HttpClientModule } from "@angular/common/http";
-import { Product, products, ProductViewModel } from '../products';
+import { HttpClient } from "@angular/common/http";
+import { ProductViewModel } from '../products';
 import { url } from '../utils';
 
 @Component({
