@@ -1,8 +1,9 @@
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { Observable } from 'rxjs';
-import {HttpClient, HttpClientModule} from "@angular/common/http";
+import { HttpClient, HttpClientModule } from "@angular/common/http";
 import { Product, products, ProductViewModel } from '../products';
+import { url } from '../utils';
 
 @Component({
   selector: 'app-products-list',
@@ -10,15 +11,6 @@ import { Product, products, ProductViewModel } from '../products';
   styleUrls: ['./products-list.component.scss']
 })
 export class ProductsListComponent implements OnInit {
-  //products = products;
-  //product: Product = { id: 0, name: "", category: "", price: 0, description: "", image: "" };
-  //(private route: ActivatedRoute) { }
-
-  // ngOnInit(): void {
-  //   //this.product.id = <number><unknown>this.route.snapshot.paramMap.get('id');
-  // }
-
-  // readonly URL = 'http://localhost:3000/products';
 
   products: Observable<ProductViewModel[]> | undefined;
 
@@ -26,7 +18,10 @@ export class ProductsListComponent implements OnInit {
 
 
   ngOnInit(): void {
-    this.products = this.http.get<ProductViewModel[]>('http://localhost:3000/products');
+    this.products = this.getProducts();
   }
 
+  getProducts() {
+    return this.http.get<ProductViewModel[]>(`${url}/products`);
+  }
 }

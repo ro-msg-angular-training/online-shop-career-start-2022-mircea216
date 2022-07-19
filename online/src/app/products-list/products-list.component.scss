@@ -1,7 +1,7 @@
 .products-catalogue {
     display: inline-flex;
     flex-direction: row;
-    font-size: 25px;
+    font-size: 20px;
     background-color: #f3dd8e;
 }
 
@@ -14,12 +14,12 @@
     height: 250px;
 }
 
-.product-description {
-    font-size: 13px;
+.product-title{
+    font-size: 20px;
 }
 
 .product-category {
-    font-size: 13px;
+    font-size: 15px;
 }
 
 .button-details {

@@ -1,6 +1,6 @@
 <div class="products-catalogue"  *ngFor="let product of products | async ">
     <div class="product-item">
-        <a [title]="product.name + ' details'">
+        <a class="product-title"  [title]="product.name + ' details'">
             {{ product.name }}
         </a>
         <p class="product-category" *ngIf="product.category">
