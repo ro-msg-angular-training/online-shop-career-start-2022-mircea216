@@ -7,6 +7,14 @@ export interface Product {
     description: string;
 }
 
+export interface ProductViewModel{
+    id: number;
+    name: string;
+    category: string;
+    price: number;
+}
+
+
 export const products = [
     {
         id: 0,

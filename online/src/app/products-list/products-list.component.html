@@ -1,15 +1,12 @@
-<div class="products-catalogue" *ngFor="let product of products">
+<div class="products-catalogue"  *ngFor="let product of products | async ">
     <div class="product-item">
         <a [title]="product.name + ' details'">
             {{ product.name }}
         </a>
-        <p class="product-category" *ngIf="product.description">
+        <p class="product-category" *ngIf="product.category">
             Category: {{product.category}}
         </p>
-        <!--<p class="product-description" *ngIf="product.description">
-            Description: {{ product.description }}
-        </p>-->
         <img class="product-interface" src="assets/images/mac.jpg" alt="A great product" />
-        <button class="button-details" type="button">Details</button>
+        <button class="button-details" [routerLink]="['/', 'product', product.id]" type="button">Details</button>
     </div>
 </div>
