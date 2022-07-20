@@ -43,7 +43,9 @@ export class ProductService {
     return this.http.post(`${url}/orders`, data, { responseType: 'text' });
   }
 
-
+  updateProduct(product: Product, id: number) {
+    return this.http.put(`${url}/products/${id}`, product);
+  }
 }
 
 

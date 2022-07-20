@@ -6,7 +6,7 @@
         <div>Description: {{product.description}}</div>
         <div>Price: {{product.price}}</div>
         <button class="remove" (click)="deleteProduct(product.id)">DELETE</button>
-        <button class="edit">EDIT</button>
+        <button class="edit" [routerLink]="['/edit-product', product.id]">EDIT</button>
     </div>
 
 </div>
