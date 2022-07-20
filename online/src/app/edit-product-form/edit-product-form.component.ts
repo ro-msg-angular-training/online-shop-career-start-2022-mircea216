@@ -40,7 +40,7 @@ export class EditProductFormComponent implements OnInit {
         price: this.editForm?.value.price,
         description: this.editForm?.value.description,
       }
-    if (this.product && this.product.id) {
+    if (this.product) {
       this.productService.updateProduct(this.product, this.product.id).subscribe
         (() => {
           alert("You successfully updated your product details")

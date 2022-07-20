@@ -1,6 +1,7 @@
 <div class="header-cart">
-    <button class="cart" routerLink="/view-cart">CART</button>
-    <button class="add-product" (click)="addToCartHandler()">ADD</button>
+    <button class="cart" routerLink="/view-cart">Cart</button>
+    <button class="add-product" (click)="addToCartHandler()">Add to Cart</button>
+    <button routerLink="/add-product-form" class="insert-product">Insert Product</button>
 </div>
 <div class="products-catalogue" *ngFor="let product of products">
     <div class="product-item" (click)="refreshID(product.id)">

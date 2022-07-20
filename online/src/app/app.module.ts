@@ -15,6 +15,7 @@ import {MatSelectModule} from "@angular/material/select";
 import {MatButtonModule} from "@angular/material/button";
 import {MatCheckboxModule} from "@angular/material/checkbox";
 import {MatChipsModule} from "@angular/material/chips";
+import { AddProductFormComponent } from './add-product-form/add-product-form.component';
 
 
 @NgModule({
@@ -23,7 +24,8 @@ import {MatChipsModule} from "@angular/material/chips";
     ProductsListComponent,
     ProductDetailsComponent,
     ShoppingCartComponent,
-    EditProductFormComponent
+    EditProductFormComponent,
+    AddProductFormComponent
   ],
   imports: [
     BrowserModule,

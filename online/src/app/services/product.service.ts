@@ -46,6 +46,10 @@ export class ProductService {
   updateProduct(product: Product, id: number) {
     return this.http.put(`${url}/products/${id}`, product);
   }
+
+  saveProduct(product: Product) {
+    return this.http.post(`${url}/products`, product);
+  }
 }
 
 
