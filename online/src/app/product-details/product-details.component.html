@@ -1,9 +1,12 @@
 <div *ngIf="product">
     <div>
-        <div>{{this.product.category}}</div>
-        <div>{{this.product.description}}</div>
-        <p>{{this.product.price}}</p>
-        <p>{{this.product.id}}</p>
+        <h1>Product: {{product.name}}</h1>
+        <div>Name: {{product.name}}</div>
+        <div>Category: {{product.category}}</div>
+        <div>Description: {{product.description}}</div>
+        <div>Price: {{product.price}}</div>
+        <button class="remove" (click)="deleteProduct(product.id)">DELETE</button>
+        <button class="edit">EDIT</button>
     </div>
 
 </div>

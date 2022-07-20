@@ -3,6 +3,7 @@ import { Observable } from 'rxjs';
 import { HttpClient } from "@angular/common/http";
 import { ProductViewModel } from '../products';
 import { url } from '../utils';
+import { ProductService } from '../services/product.service';
 
 @Component({
   selector: 'app-products-list',
@@ -10,17 +11,17 @@ import { url } from '../utils';
   styleUrls: ['./products-list.component.scss']
 })
 export class ProductsListComponent implements OnInit {
+  products: ProductViewModel[] | undefined;
 
-  products: Observable<ProductViewModel[]> | undefined;
-
-  constructor(private http: HttpClient) { }
+  constructor(private productService: ProductService) { }
 
 
   ngOnInit(): void {
-    this.products = this.getProducts();
+    this.getProductsList();
   }
 
-  getProducts() {
-    return this.http.get<ProductViewModel[]>(`${url}/products`);
+  getProductsList(): void {
+    this.productService.getProducts().subscribe(products => this.products = products);
   }
+
 }

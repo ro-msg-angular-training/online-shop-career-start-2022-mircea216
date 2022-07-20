@@ -1,9 +1,9 @@
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { Observable, of } from 'rxjs';
-import { Product, products, ProductViewModel } from '../products';
-import { HttpClient } from "@angular/common/http";
-import { url } from '../utils';
+import { Product, ProductViewModel } from '../products';
+import { Location } from '@angular/common';
+import { ProductService } from '../services/product.service';
 
 
 @Component({
@@ -13,8 +13,8 @@ import { url } from '../utils';
 })
 export class ProductDetailsComponent implements OnInit {
   product: Product | undefined;
-  selectedID: number | undefined;
-  constructor(private http: HttpClient, private route: ActivatedRoute) {
+  products: ProductViewModel[] | undefined;
+  constructor(private productService: ProductService, private location: Location, private route: ActivatedRoute) {
 
   }
 
@@ -24,6 +24,20 @@ export class ProductDetailsComponent implements OnInit {
   }
 
   getProductById(id: number): Observable<Product> {
-    return this.http.get<Product>(`${url}/products/${id}`);
+    return this.productService.getProductById(id);
+  }
+
+  deleteProduct(id: number): void {
+    this.productService.deleteProduct(id).subscribe(() => {
+      this.productService.getProducts().subscribe((products) => {
+        this.products = products;
+        alert(`The product with ID ${id} has been successfully deleted`);
+        this.goBack();
+      });
+    });
+  }
+
+  goBack(): void {
+    this.location.back();
   }
 }
