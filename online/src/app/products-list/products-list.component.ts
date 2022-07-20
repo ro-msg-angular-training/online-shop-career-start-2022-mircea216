@@ -1,8 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { Observable } from 'rxjs';
-import { HttpClient } from "@angular/common/http";
 import { ProductViewModel } from '../products';
-import { url } from '../utils';
 import { ProductService } from '../services/product.service';
 
 @Component({
@@ -11,6 +8,7 @@ import { ProductService } from '../services/product.service';
   styleUrls: ['./products-list.component.scss']
 })
 export class ProductsListComponent implements OnInit {
+  productID: number = -1;
   products: ProductViewModel[] | undefined;
 
   constructor(private productService: ProductService) { }
@@ -22,6 +20,14 @@ export class ProductsListComponent implements OnInit {
 
   getProductsList(): void {
     this.productService.getProducts().subscribe(products => this.products = products);
+  }
+
+  addToCartHandler(): void {
+    this.productService.addToCart(this.productID);
+  }
+
+  refreshID(id: number) {
+    this.productID = id;
   }
 
 }

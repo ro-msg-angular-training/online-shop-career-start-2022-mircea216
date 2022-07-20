@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
-import { Observable, of } from 'rxjs';
+import { Observable } from 'rxjs';
 import { Product, ProductViewModel } from '../products';
 import { Location } from '@angular/common';
 import { ProductService } from '../services/product.service';

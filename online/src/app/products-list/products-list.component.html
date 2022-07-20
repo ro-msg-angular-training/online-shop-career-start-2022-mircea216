@@ -1,9 +1,9 @@
 <div class="header-cart">
-    <button class="cart">CART</button>
-    <button class="add-product">ADD</button>
+    <button class="cart" routerLink="/view-cart">CART</button>
+    <button class="add-product" (click)="addToCartHandler()">ADD</button>
 </div>
-<div class="products-catalogue" *ngFor="let product of products  ">
-    <div class="product-item">
+<div class="products-catalogue" *ngFor="let product of products">
+    <div class="product-item" (click)="refreshID(product.id)">
         <a class="product-title" [title]="product.name + ' details'">
             {{ product.name }}
         </a>
