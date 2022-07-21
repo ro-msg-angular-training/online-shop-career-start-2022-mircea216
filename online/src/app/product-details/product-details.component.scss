@@ -1,11 +1,35 @@
-.remove{
+
+.remove {
     height: 20px;
     width: 70px;
     margin-right: 50px;
     margin-left: 0px;
+    background-color: #6a0a2a;
+    color: white;
+    cursor: hand;
+    margin-left: 20px;
 }
-.edit{
+
+.edit {
     height: 20px;
     width: 70px;
     margin-left: 50px;
+    background-color: #6a0a2a;
+    color: white;
+    cursor: hand;
+    margin-left: 20px;
+}
+
+button:hover {
+    opacity: 80%;
+}
+
+.container {
+    margin-left: 20px;
+}
+
+div {
+    color: #6a0a2a;
+    font-size: large;
+    margin-left: 10px;
 }
