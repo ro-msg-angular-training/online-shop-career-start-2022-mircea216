@@ -5,8 +5,8 @@
         <div>Category: {{product.category}}</div>
         <div>Description: {{product.description}}</div>
         <div>Price: {{product.price}}</div>
-        <button class="remove" (click)="deleteProduct(product.id)">DELETE</button>
-        <button class="edit" [routerLink]="['/edit-product', product.id]">EDIT</button>
+        <button class="remove" (click)="deleteProduct(product.id)" *ngIf="hasAdminRole">DELETE</button>
+        <button class="edit" [routerLink]="['/edit-product', product.id]" *ngIf="hasAdminRole">EDIT</button>
     </div>
 
 </div>

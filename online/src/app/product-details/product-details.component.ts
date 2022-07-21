@@ -4,6 +4,8 @@ import { Observable } from 'rxjs';
 import { Product, ProductViewModel } from '../products';
 import { Location } from '@angular/common';
 import { ProductService } from '../services/product.service';
+import { AuthentificationService } from '../services/authentification.service';
+import { admin } from '../utils';
 
 
 @Component({
@@ -14,7 +16,9 @@ import { ProductService } from '../services/product.service';
 export class ProductDetailsComponent implements OnInit {
   product: Product | undefined;
   products: ProductViewModel[] | undefined;
-  constructor(private productService: ProductService, private location: Location, private route: ActivatedRoute) {
+  hasAdminRole = this.authService.hasRoleType(admin);
+
+  constructor(private productService: ProductService, private location: Location, private route: ActivatedRoute, private authService: AuthentificationService) {
 
   }
 

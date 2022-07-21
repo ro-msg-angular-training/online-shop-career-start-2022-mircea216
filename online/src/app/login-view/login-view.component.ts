@@ -28,9 +28,17 @@ export class LoginViewComponent implements OnInit {
       username: this.loginForm?.value.username,
       password: this.loginForm?.value.password
     };
-    this.authentificationService.login(credentials).subscribe(() => {
-      this.route.navigateByUrl(`/products`);
-    });
+    this.authentificationService.login(credentials).subscribe(
+      (value) => {
+        console.log("POST call successful value returned in body",
+          value);
+        this.route.navigateByUrl(`/products`);
+      },
+      response => {
+        console.log("POST call in error", response);
+        alert('The credentials you introduced do not exist');
+      }
+    );
   }
 
 }

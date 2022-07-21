@@ -1,7 +1,7 @@
 <div class="header-cart">
     <button class="cart" routerLink="/view-cart" *ngIf="hasCustomerRole">Cart</button>
     <button class="add-product" (click)="addToCartHandler()" *ngIf="hasCustomerRole">Add to Cart</button>
-    <button routerLink="/add-product-form" class="insert-product">Insert Product</button>
+    <button routerLink="/add-product-form" class="insert-product" *ngIf="hasAdminRole">Insert Product</button>
 </div>
 <div class="products-catalogue" *ngFor="let product of products">
     <div class="product-item" (click)="refreshID(product.id)">

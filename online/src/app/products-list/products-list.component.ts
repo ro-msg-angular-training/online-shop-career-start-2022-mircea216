@@ -2,7 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { ProductViewModel } from '../products';
 import { AuthentificationService } from '../services/authentification.service';
 import { ProductService } from '../services/product.service';
-import { customer } from '../utils';
+import { admin, customer } from '../utils';
 
 @Component({
   selector: 'app-products-list',
@@ -13,7 +13,8 @@ export class ProductsListComponent implements OnInit {
   productID: number = -1;
   products: ProductViewModel[] | undefined;
   hasCustomerRole = this.authService.hasRoleType(customer);
-  //hasAdminRole = this.authService.hasRoleType(ad)
+  hasAdminRole = this.authService.hasRoleType(admin);
+  
   constructor(private productService: ProductService, private authService: AuthentificationService) { }
 
 
