@@ -16,6 +16,7 @@ import {MatButtonModule} from "@angular/material/button";
 import {MatCheckboxModule} from "@angular/material/checkbox";
 import {MatChipsModule} from "@angular/material/chips";
 import { AddProductFormComponent } from './add-product-form/add-product-form.component';
+import { LoginViewComponent } from './login-view/login-view.component';
 
 
 @NgModule({
@@ -25,7 +26,8 @@ import { AddProductFormComponent } from './add-product-form/add-product-form.com
     ProductDetailsComponent,
     ShoppingCartComponent,
     EditProductFormComponent,
-    AddProductFormComponent
+    AddProductFormComponent,
+    LoginViewComponent
   ],
   imports: [
     BrowserModule,

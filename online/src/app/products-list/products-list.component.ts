@@ -1,6 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import { ProductViewModel } from '../products';
+import { AuthentificationService } from '../services/authentification.service';
 import { ProductService } from '../services/product.service';
+import { customer } from '../utils';
 
 @Component({
   selector: 'app-products-list',
@@ -10,8 +12,9 @@ import { ProductService } from '../services/product.service';
 export class ProductsListComponent implements OnInit {
   productID: number = -1;
   products: ProductViewModel[] | undefined;
-
-  constructor(private productService: ProductService) { }
+  hasCustomerRole = this.authService.hasRoleType(customer);
+  //hasAdminRole = this.authService.hasRoleType(ad)
+  constructor(private productService: ProductService, private authService: AuthentificationService) { }
 
 
   ngOnInit(): void {
