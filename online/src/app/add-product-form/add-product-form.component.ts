@@ -15,7 +15,6 @@ export class AddProductFormComponent implements OnInit {
 
   ngOnInit(): void {
     this.addForm = this.formBuilder.group({
-      id: [0, [Validators.required, Validators.min(0), Validators.max(10000), Validators.pattern("^[1-9][0-9]*$")]],
       name: ['', [Validators.required, Validators.minLength(3), Validators.maxLength(100)]],
       category: ['', [Validators.required, Validators.minLength(3), Validators.maxLength(100)]],
       image: ['', [Validators.required, Validators.minLength(10), Validators.maxLength(10000)]],
@@ -27,7 +26,6 @@ export class AddProductFormComponent implements OnInit {
 
   insertProduct(): void {
     const product = {
-      id: this.addForm?.value.id,
       name: this.addForm?.value.name,
       category: this.addForm?.value.category,
       image: this.addForm?.value.image,

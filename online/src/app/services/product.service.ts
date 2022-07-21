@@ -47,7 +47,7 @@ export class ProductService {
     return this.http.put(`${url}/products/${id}`, product);
   }
 
-  saveProduct(product: Product) {
+  saveProduct(product: any) {
     return this.http.post(`${url}/products`, product);
   }
 }
