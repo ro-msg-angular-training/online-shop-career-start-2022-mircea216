@@ -15,7 +15,11 @@ export class AuthentificationService {
   constructor(private http: HttpClient) { }
 
   login(credentials: Credentials): Observable<User> {
-    return this.http.post<User>(`${url}/login`, credentials).pipe(tap((user) => { this.loggedUser = user; }));
+    return this.http.post<User>(`${url}/login`, credentials).pipe(tap((user) => {
+      this.loggedUser = user;
+      localStorage.setItem("username", user.username);
+      localStorage.setItem("logged", this.loggedIn().toString());
+    }));
   }
 
   loggedIn(): boolean {

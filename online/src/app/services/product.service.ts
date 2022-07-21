@@ -38,7 +38,7 @@ export class ProductService {
   }
 
   checkout(): any {
-    const data = { customer: 'doej', products: this.productOrders };
+    const data = { customer: localStorage.getItem('username'), products: this.productOrders };
     this.productOrders = [];
     return this.http.post(`${url}/orders`, data, { responseType: 'text' });
   }
