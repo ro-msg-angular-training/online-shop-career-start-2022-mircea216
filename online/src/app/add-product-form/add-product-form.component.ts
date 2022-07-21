@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { FormBuilder, FormGroup } from '@angular/forms';
+import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { ProductService } from '../services/product.service';
 import { Location } from '@angular/common'
 
@@ -15,12 +15,12 @@ export class AddProductFormComponent implements OnInit {
 
   ngOnInit(): void {
     this.addForm = this.formBuilder.group({
-      id: 0,
-      name: "",
-      category: "",
-      image: "",
-      price: 0,
-      description: ""
+      id: [0, [Validators.required, Validators.min(0), Validators.max(10000), Validators.pattern("^[1-9][0-9]*$")]],
+      name: ['', [Validators.required, Validators.minLength(3), Validators.maxLength(100)]],
+      category: ['', [Validators.required, Validators.minLength(3), Validators.maxLength(100)]],
+      image: ['', [Validators.required, Validators.minLength(10), Validators.maxLength(10000)]],
+      price: ['', [Validators.required, Validators.min(0), Validators.max(10000), Validators.pattern("^[1-9][0-9]*$")]],
+      description: ['', [Validators.required, Validators.minLength(20), Validators.maxLength(10000)]]
     });
     this.addForm.valueChanges.subscribe();
   }
@@ -34,10 +34,14 @@ export class AddProductFormComponent implements OnInit {
       price: this.addForm?.value.price,
       description: this.addForm?.value.description
     };
-    this.procuctService.saveProduct(product).subscribe(() => {
-      alert("Product successfully added");
-      this.goBack();
-    });
+    if (!this.addForm?.invalid) {
+      this.procuctService.saveProduct(product).subscribe(() => {
+        alert("Product successfully added!");
+        this.goBack();
+      });
+    } else {
+      alert('Your data is not valid! Retry!');
+    }
   }
 
   goBack() {
