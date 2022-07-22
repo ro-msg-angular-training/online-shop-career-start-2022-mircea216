@@ -1,0 +1,17 @@
+<form class="login-form" [formGroup]="loginForm" *ngIf="loginForm">
+    <div class="form">
+        <label><b>Username</b></label>
+        <br>
+        <mat-form-field>
+            <input matInput type="text" placeholder="Username" formControlName="username">
+        </mat-form-field>
+        <br>
+        <label><b>Password</b></label>
+        <br>
+        <mat-form-field>
+            <input matInput input type="password" placeholder="Password" formControlName="password">
+        </mat-form-field>
+        <br>
+        <button type="submit" (click)="login()">Login</button>
+    </div>
+</form>

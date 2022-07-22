@@ -1,0 +1,23 @@
+<form [formGroup]="editForm" *ngIf="editForm">
+    <mat-form-field>
+        <input matInput placeholder="name" formControlName="name">
+    </mat-form-field>
+    <br>
+    <mat-form-field>
+        <input matInput placeholder="category" formControlName="category">
+    </mat-form-field>
+    <br>
+    <mat-form-field>
+        <input matInput placeholder="price" formControlName="price">
+    </mat-form-field>
+    <br>
+    <mat-form-field>
+        <input matInput placeholder="image" formControlName="image">
+    </mat-form-field>
+    <br>
+    <mat-form-field>
+        <textarea matInput placeholder="type your description..." formControlName="description"></textarea>
+    </mat-form-field>
+</form>
+<button (click)="updateFieldsOfProduct()">SAVE</button>
+<button (click)="goBack()">CANCEL</button>

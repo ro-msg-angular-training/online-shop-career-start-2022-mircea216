@@ -1,0 +1,40 @@
+.header-cart{
+    margin-bottom: 10px;
+}
+
+.products-catalogue {
+    display: inline-flex;
+    flex-direction: row;
+    font-size: 20px;
+    background-color: #f3dd8e;
+}
+
+
+.products-catalogue>div {
+    background-color: #ede6d1;
+    margin: 20px;
+    padding: 20px;
+    width: 250px;
+    height: 250px;
+}
+
+.product-title{
+    font-size: 20px;
+}
+
+.product-category {
+    font-size: 15px;
+}
+
+.button-details {
+    background-color: #dddd88;
+    position: absolute;
+    margin-left: 70px;
+    margin-top: 175px;
+}
+
+.product-interface {
+    margin-top: 20px;
+    width: 140px;
+    height: 140px;
+}

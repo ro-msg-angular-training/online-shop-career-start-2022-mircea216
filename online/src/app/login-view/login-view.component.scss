@@ -1,0 +1,46 @@
+form {
+    border: 3px solid #f1f1f1;
+}
+
+mat-form-field {
+    width: 30%;
+    padding: 12px 20px;
+    margin: 8px 0;
+    display: inline-block;
+    border: 1px solid  black;
+    box-sizing: border-box;
+    display: flex;
+    margin: auto;
+}
+
+button {
+    background-color: #731227;
+    font-size: 15px;
+    color: white;
+    padding: 14px 20px;
+    margin: 8px 0;
+    border: 1px;
+    cursor: pointer;
+    height: 5%;
+    width: 10%;
+    text-align: center;
+    display: flex;
+    margin-left: 45%;
+    text-align: center;
+}
+
+button:hover {
+    opacity: 0.8;
+}
+
+.form {
+    padding: 16px;
+}
+
+label{
+    display: flex;
+    margin-left: 35%;
+}
+div{
+    background-color: #e2e4c0;
+}

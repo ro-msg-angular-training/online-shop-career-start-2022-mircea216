@@ -1,0 +1,23 @@
+<form [formGroup]="addForm" *ngIf="addForm">
+    <mat-form-field>
+        <input matInput placeholder="name" formControlName="name">
+    </mat-form-field>
+    <br>
+    <mat-form-field>
+        <input matInput placeholder="category" formControlName="category">
+    </mat-form-field>
+    <br>
+    <mat-form-field>
+        <input matInput placeholder="price" formControlName="price">
+    </mat-form-field>
+    <br>
+    <mat-form-field>
+        <input matInput placeholder="image path" formControlName="image">
+    </mat-form-field>
+    <br>
+    <mat-form-field>
+        <textarea matInput placeholder="type your description..." formControlName="description"></textarea>
+    </mat-form-field>
+</form>
+<button (click)="insertProduct()">DONE</button>
+<button (click)="goBack()">CANCEL</button>
