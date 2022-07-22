@@ -3,7 +3,7 @@
     <button class="add-product" (click)="addToCartHandler()" *ngIf="hasCustomerRole">Add to Cart</button>
     <button routerLink="/add-product-form" class="insert-product" *ngIf="hasAdminRole">Insert Product</button>
 </div>
-<div class="products-catalogue" *ngFor="let product of products">
+<div class="products-catalogue" *ngFor="let product of (allProducts$|async)">
     <div class="product-item" (click)="refreshID(product.id)">
         <a class="product-title" [title]="product.name + ' details'">
             {{ product.name }}
