@@ -37,14 +37,14 @@ export class ProductService {
     return this.productOrders;
   }
 
-  checkout(): any {
+  checkout(): Observable<string> {
     const data = { customer: localStorage.getItem('username'), products: this.productOrders };
     this.productOrders = [];
     return this.http.post(`${url}/orders`, data, { responseType: 'text' });
   }
 
-  updateProduct(product: Product, id: number) {
-    return this.http.put(`${url}/products/${id}`, product);
+  updateProduct(product: Product, id: number): Observable<Product> {
+    return this.http.put<Product>(`${url}/products/${id}`, product);
   }
 
   saveProduct(product: any) {

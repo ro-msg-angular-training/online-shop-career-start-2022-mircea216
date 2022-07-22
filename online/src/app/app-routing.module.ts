@@ -17,7 +17,7 @@ const routes: Routes = [
     },
     { path: 'product/:id', component: ProductDetailsComponent },
     {
-      path: 'view-cart', component: ShoppingCartComponent
+      path: 'shopping-cart', component: ShoppingCartComponent
     },
     {
       path: 'edit-product/:id', component: EditProductFormComponent

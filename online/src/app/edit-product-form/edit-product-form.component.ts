@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { ActivatedRoute } from '@angular/router';
 import { Product } from '../products';
+import { take } from 'rxjs';
 import { ProductService } from '../services/product.service';
 import { Location } from '@angular/common'
 @Component({
@@ -17,7 +18,7 @@ export class EditProductFormComponent implements OnInit {
 
   ngOnInit(): void {
     const id = this.route.snapshot.params['id'];
-    this.productService.getProductById(id).subscribe((item: Product) => {
+    this.productService.getProductById(id).pipe(take(1)).subscribe((item: Product) => {
       this.product = item;
       this.editForm = this.formBuilder.group({
         name: [this.editForm?.value.name, [Validators.required, Validators.minLength(3), Validators.maxLength(100)]],
@@ -26,20 +27,15 @@ export class EditProductFormComponent implements OnInit {
         image: [this.product?.image, [Validators.required, Validators.minLength(20), Validators.maxLength(1000)]],
         description: [this.product?.description, [Validators.required, Validators.minLength(20), Validators.maxLength(1000)]]
       });
-      this.editForm.valueChanges.subscribe(console.log);
     });
   }
 
-  updateFieldsOfProduct() {
+  updateFieldsOfProduct(): void {
     if (this.product) {
-      if (!this.editForm?.invalid) {
+      if (this.editForm?.valid) {
         this.product = {
           id: this.product.id,
-          name: this.editForm?.value.name,
-          category: this.editForm?.value.category,
-          image: this.editForm?.value.image,
-          price: this.editForm?.value.price,
-          description: this.editForm?.value.description,
+          ...this.editForm.value
         }
         if (this.product) {
           this.productService.updateProduct(this.product, this.product.id).subscribe
@@ -54,7 +50,7 @@ export class EditProductFormComponent implements OnInit {
     }
   }
 
-  goBack() {
+  goBack(): void {
     this.location.back();
   }
 }

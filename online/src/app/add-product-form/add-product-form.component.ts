@@ -21,7 +21,6 @@ export class AddProductFormComponent implements OnInit {
       price: ['', [Validators.required, Validators.min(0), Validators.max(10000), Validators.pattern("^[1-9][0-9]*$")]],
       description: ['', [Validators.required, Validators.minLength(20), Validators.maxLength(10000)]]
     });
-    this.addForm.valueChanges.subscribe();
   }
 
   insertProduct(): void {
@@ -32,7 +31,7 @@ export class AddProductFormComponent implements OnInit {
       price: this.addForm?.value.price,
       description: this.addForm?.value.description
     };
-    if (!this.addForm?.invalid) {
+    if (this.addForm?.valid) {
       this.procuctService.saveProduct(product).subscribe(() => {
         alert("Product successfully added!");
         this.goBack();

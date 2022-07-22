@@ -1,5 +1,5 @@
 <div class="header-cart">
-    <button class="cart" routerLink="/view-cart" *ngIf="hasCustomerRole">Cart</button>
+    <button class="cart" routerLink="/shopping-cart" *ngIf="hasCustomerRole">Cart</button>
     <button class="add-product" (click)="addToCartHandler()" *ngIf="hasCustomerRole">Add to Cart</button>
     <button routerLink="/add-product-form" class="insert-product" *ngIf="hasAdminRole">Insert Product</button>
 </div>
