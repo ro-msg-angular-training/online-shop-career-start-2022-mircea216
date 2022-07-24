@@ -2,6 +2,9 @@ import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { ProductService } from '../services/product.service';
 import { Location } from '@angular/common'
+import { AppState } from '../store/state/app.state';
+import { Store } from '@ngrx/store';
+import { addProduct } from '../store/actions/product.actions';
 
 @Component({
   selector: 'app-add-product-form',
@@ -11,7 +14,8 @@ import { Location } from '@angular/common'
 export class AddProductFormComponent implements OnInit {
   addForm: FormGroup | undefined;
 
-  constructor(private formBuilder: FormBuilder, private procuctService: ProductService, private location: Location) { }
+  constructor(private formBuilder: FormBuilder, private procuctService: ProductService,
+    private location: Location, private store: Store<AppState>) { }
 
   ngOnInit(): void {
     this.addForm = this.formBuilder.group({
@@ -25,6 +29,7 @@ export class AddProductFormComponent implements OnInit {
 
   insertProduct(): void {
     const product = {
+      id: Math.floor(Math.random() * (1000 - 50 + 1)) + 50,
       name: this.addForm?.value.name,
       category: this.addForm?.value.category,
       image: this.addForm?.value.image,
@@ -32,10 +37,13 @@ export class AddProductFormComponent implements OnInit {
       description: this.addForm?.value.description
     };
     if (this.addForm?.valid) {
-      this.procuctService.saveProduct(product).subscribe(() => {
-        alert("Product successfully added!");
-        this.goBack();
-      });
+      this.store.dispatch(addProduct({ product }));
+      alert("Product successfully added!");
+      this.goBack();
+      // this.procuctService.saveProduct(product).subscribe(() => {
+      //   alert("Product successfully added!");
+      //   this.goBack();
+      // });
     } else {
       alert('Your data is not valid! Retry!');
     }

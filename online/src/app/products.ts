@@ -14,3 +14,11 @@ export interface ProductViewModel {
     price: number;
 }
 
+export interface ProductWithoutId {
+    name: string;
+    category: string;
+    image: string;
+    price: number;
+    description: string;
+}
+

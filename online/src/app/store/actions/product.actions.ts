@@ -1,51 +1,51 @@
-
-
-// export enum EProductActions {
-//     GetProducts = '[Product] Get Products',
-//     GetProductsSuccess = '[Product] Get Products Success',
-//     GetProduct = '[Product] Get Product',
-//     GetProductSuccess = '[Product] Get Product Success',
-// }
-
-// export class GetProducts implements Action {
-//     public readonly type = EProductActions.GetProducts;
-// }
-
-// export class GetProductsSuccess implements Action {
-//     public readonly type = EProductActions.GetProductsSuccess;
-//     constructor(public payload: Product[]) {
-
-//     }
-// }
-
-// export class GetProduct implements Action {
-//     public readonly type = EProductActions.GetProduct;
-//     constructor(public payload: number) {
-
-//     }
-// }
-
-// export class GetProductSuccess implements Action {
-//     public readonly type = EProductActions.GetProductSuccess;
-//     constructor(public payload: Product) {
-
-//     }
-// }
-
-// export type ProductActions = GetProduct | GetProductSuccess | GetProducts | GetProductsSuccess;
-
+import { HttpErrorResponse } from "@angular/common/http";
 import { createAction, props } from "@ngrx/store";
 import { Product } from "src/app/products";
 import { ProductViewModel } from "src/app/products";
+
+export const getProduct = createAction(
+    '[Product] Get Product',
+    props<{ id: number }>()
+)
+
+export const getProductSucces = createAction(
+    '[Product] Get Product Success',
+    props<{ product: Product }>()
+)
+
+export const getProductError = createAction(
+    '[Product] Get Product Error',
+    props<{ response: HttpErrorResponse }>()
+)
 
 export const addProduct = createAction(
     '[Product] Add Product',
     props<{ product: Product }>()
 )
 
+export const addProductSuccess = createAction(
+    '[Product] Add Product Success',
+    props<{ product: Product }>()
+)
+
+export const addProductError = createAction(
+    '[Product] Add Product Error',
+    props<{ response: HttpErrorResponse }>()
+)
+
 export const removeProduct = createAction(
-    '[Product] Add Product',
+    '[Product] Remove Product',
     props<{ id: number }>()
+)
+
+export const removeProductSucces = createAction(
+    '[Product] Remove Product Success',
+    props<{ id: number }>()
+)
+
+export const removeProductError = createAction(
+    '[Product] Remove Product Error',
+    props<{ response: HttpErrorResponse }>()
 )
 
 export const loadProducts = createAction(
