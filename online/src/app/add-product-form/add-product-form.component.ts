@@ -40,10 +40,6 @@ export class AddProductFormComponent implements OnInit {
       this.store.dispatch(addProduct({ product }));
       alert("Product successfully added!");
       this.goBack();
-      // this.procuctService.saveProduct(product).subscribe(() => {
-      //   alert("Product successfully added!");
-      //   this.goBack();
-      // });
     } else {
       alert('Your data is not valid! Retry!');
     }

@@ -3,10 +3,13 @@ import { Store } from "@ngrx/store";
 import { ProductService } from "src/app/services/product.service";
 import { AppState } from "../state/app.state";
 import { Actions, createEffect, ofType } from '@ngrx/effects';
-import { addProduct, addProductError, addProductSuccess, getProduct, getProductError, getProductSucces, loadProducts, loadProductsFailure, loadProductsSuccess, removeProduct, removeProductError, removeProductSucces } from "../actions/product.actions";
-import { selectAllProducts } from "../selectors/product.selectors";
-import { concat, from, of } from "rxjs";
-import { switchMap, map, catchError, withLatestFrom, flatMap, mergeMap, concatMap } from 'rxjs/operators';
+import {
+    addProduct, addProductError, addProductSuccess, getProduct, updateProduct, updateProductError,
+    updateProductSuccess, getProductSucces, loadProducts, loadProductsFailure, loadProductsSuccess,
+    removeProduct, removeProductError, removeProductSucces
+} from "../actions/product.actions";
+import { from, of } from "rxjs";
+import { switchMap, map, catchError, concatMap } from 'rxjs/operators';
 import { Product } from "src/app/products";
 
 
@@ -60,6 +63,18 @@ export class ProductEffects {
             map((product) => getProductSucces({ product: product })))
     );
 
+
+    updateProduct$ = createEffect(() =>
+        this.actions$.pipe(
+            ofType(updateProduct),
+            switchMap((action) => this.productService.updateProduct(action.product, action.id)
+                .pipe(map(() => action.product),
+                    map((product: Product) => updateProductSuccess({ product })),
+                    catchError((response) => of(updateProductError({ response })))
+                )
+            ),
+        ),
+    )
 
     // createEffect(() =>
     //     this.actions$.pipe(

@@ -62,3 +62,18 @@ export const loadProductsFailure = createAction(
     '[Product] Load Products Failure',
     props<{ error: string }>()
 );
+
+export const updateProduct = createAction(
+    '[Product] Update Product',
+    props<{ product: Product, id: number }>()
+)
+
+export const updateProductSuccess = createAction(
+    '[Product] Update Product Success',
+    props<{ product: Product }>()
+)
+
+export const updateProductError = createAction(
+    '[Product] Update Product Error',
+    props<{ response: HttpErrorResponse }>()
+)

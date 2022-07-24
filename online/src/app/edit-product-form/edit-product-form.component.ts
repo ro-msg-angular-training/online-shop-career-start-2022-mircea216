@@ -5,6 +5,9 @@ import { Product } from '../products';
 import { take } from 'rxjs';
 import { ProductService } from '../services/product.service';
 import { Location } from '@angular/common'
+import { Store } from '@ngrx/store';
+import { AppState } from '../store/state/app.state';
+import { updateProduct } from '../store/actions/product.actions';
 @Component({
   selector: 'app-edit-product-form',
   templateUrl: './edit-product-form.component.html',
@@ -14,7 +17,7 @@ export class EditProductFormComponent implements OnInit {
   editForm: FormGroup | undefined;
   product: Product | undefined;
   constructor(private productService: ProductService, private route: ActivatedRoute, private formBuilder: FormBuilder,
-    private location: Location) { }
+    private location: Location, private store: Store<AppState>) { }
 
   ngOnInit(): void {
     const id = this.route.snapshot.params['id'];
@@ -38,11 +41,14 @@ export class EditProductFormComponent implements OnInit {
           ...this.editForm.value
         }
         if (this.product) {
-          this.productService.updateProduct(this.product, this.product.id).subscribe
-            (() => {
-              alert("You successfully updated your product details")
-              this.goBack();
-            });
+          this.store.dispatch(updateProduct({ product: this.product, id: this.product.id }));
+          alert("You successfully updated your product details")
+          this.goBack();
+          // this.productService.updateProduct(this.product, this.product.id).subscribe
+          //   (() => {
+          //     alert("You successfully updated your product details")
+          //     this.goBack();
+          //   });
         }
       } else {
         alert('Your data is not valid! Retry!')

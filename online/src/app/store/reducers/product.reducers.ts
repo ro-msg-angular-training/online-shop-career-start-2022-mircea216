@@ -1,6 +1,6 @@
-import { createReducer, on, State } from "@ngrx/store";
+import { createReducer, on } from "@ngrx/store";
 import { initialState } from "../state/product.state";
-import { addProduct, removeProduct, loadProducts, loadProductsSuccess, loadProductsFailure, getProduct } from "../actions/product.actions";
+import { addProduct, removeProduct, loadProducts, loadProductsSuccess, loadProductsFailure, getProduct, updateProduct } from "../actions/product.actions";
 
 export const productReducer = createReducer(
     initialState,
@@ -38,5 +38,9 @@ export const productReducer = createReducer(
         ...state,
         error: error,
         status: 'error',
-    }))
-)
+    })),
+    on(updateProduct, (state) => ({
+        ...state,
+        status: 'loading'
+    })
+    ))
