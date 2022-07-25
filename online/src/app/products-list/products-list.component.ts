@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { Store } from '@ngrx/store';
 import { ProductViewModel } from '../products';
 import { ProductService } from '../services/product.service';
+import { placeOrder } from '../store/actions/cart.actions';
 import { loadProducts } from '../store/actions/product.actions';
 import { adminRoleSelector, customerRoleSelector } from '../store/selectors/auth.selectors';
 import { selectAllProducts } from '../store/selectors/product.selectors';
@@ -34,7 +35,7 @@ export class ProductsListComponent implements OnInit {
   }
 
   addToCartHandler(): void {
-    this.productService.addToCart(this.productID);
+    this.store.dispatch(placeOrder({ id: this.productID }))
   }
 
   refreshID(id: number) {

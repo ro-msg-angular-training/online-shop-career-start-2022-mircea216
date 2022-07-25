@@ -26,6 +26,8 @@ import { StoreRouterConnectingModule } from '@ngrx/router-store';
 import { ProductEffects } from './store/effects/product.effects';
 import { AuthEffects } from './store/effects/auth.effects';
 import { authReducer } from './store/reducers/auth.reducers';
+import { CartEffects } from './store/effects/cart.effects';
+import { cartReducer } from './store/reducers/cart.reducers';
 
 
 @NgModule({
@@ -49,8 +51,8 @@ import { authReducer } from './store/reducers/auth.reducers';
     MatSelectModule,
     MatButtonModule,
     BrowserAnimationsModule,
-    StoreModule.forRoot({ products: productReducer, authentificationState: authReducer }, {}),
-    EffectsModule.forRoot([ProductEffects, AuthEffects]),
+    StoreModule.forRoot({ products: productReducer, authentificationState: authReducer, cart: cartReducer }, {}),
+    EffectsModule.forRoot([ProductEffects, AuthEffects, CartEffects]),
     StoreDevtoolsModule.instrument({ maxAge: 25, logOnly: environment.production }),
     StoreRouterConnectingModule.forRoot(),
   ],

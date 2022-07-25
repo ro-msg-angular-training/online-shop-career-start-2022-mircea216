@@ -24,13 +24,14 @@ export class ProductService {
     return this.http.delete<void>(`${url}/products/${id}`);
   }
 
-  addToCart(productID: number): void {
+  addToCart(productID: number): string {
     let productOrders = this.productOrders.find(productOrder => productOrder.productId === productID);
     if (productOrders === undefined) {
       this.productOrders.push({ productId: productID, quantity: 1 });
     } else {
       productOrders.quantity += 1;
     }
+    return "string";
   }
 
   getCartOrders(): ProductOrder[] {
