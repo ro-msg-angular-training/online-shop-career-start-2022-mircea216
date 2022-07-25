@@ -1,5 +1,4 @@
 import { Component, OnInit } from '@angular/core';
-import { ProductService } from '../services/product.service';
 import { Product } from '../products';
 import { Location } from '@angular/common';
 import { Store } from '@ngrx/store';
@@ -9,6 +8,7 @@ import { take } from 'rxjs';
 import { ProductContentCart, ProductOrder } from 'src/order';
 import { getProduct } from '../store/actions/product.actions';
 import { selectOneProduct } from '../store/selectors/product.selectors';
+import { checkoutRequest } from '../store/actions/cart.actions';
 @Component({
   selector: 'app-shopping-cart',
   templateUrl: './shopping-cart.component.html',
@@ -22,7 +22,7 @@ export class ShoppingCartComponent implements OnInit {
   orders$ = this.store.select(ordersSelector);
   selectedProduct$ = this.store.select(selectOneProduct);
 
-  constructor(private productService: ProductService, private location: Location,
+  constructor(private location: Location,
     private store: Store<AppState>) { }
 
   ngOnInit(): void {
@@ -48,10 +48,10 @@ export class ShoppingCartComponent implements OnInit {
   }
 
   checkoutHandler() {
-    this.productService.checkout().subscribe(() => {
-      alert('Checkout succesfully done');
-      this.goBack();
-    });
+    this.store.dispatch(checkoutRequest({ productOrder: this.products }));
+    this.products = [];
+    alert('Checkout succesfully done');
+    this.goBack();
   }
 
   goBack(): void {

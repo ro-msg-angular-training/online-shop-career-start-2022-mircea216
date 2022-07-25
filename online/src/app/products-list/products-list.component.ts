@@ -1,7 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { Store } from '@ngrx/store';
 import { ProductViewModel } from '../products';
-import { ProductService } from '../services/product.service';
 import { placeOrder } from '../store/actions/cart.actions';
 import { loadProducts } from '../store/actions/product.actions';
 import { adminRoleSelector, customerRoleSelector } from '../store/selectors/auth.selectors';
@@ -24,8 +23,7 @@ export class ProductsListComponent implements OnInit {
   customerRoleSelector = this.store.select(customerRoleSelector);;
 
 
-  constructor(private productService: ProductService,
-    private store: Store<AppState>) { }
+  constructor(private store: Store<AppState>) { }
 
 
   ngOnInit(): void {

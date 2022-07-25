@@ -1,6 +1,7 @@
 import { createReducer, on } from "@ngrx/store";
-import { ProductOrder } from "src/order";
-import { placeOrder } from "../actions/cart.actions";
+import {
+    checkoutRequest, checkoutRequestError, checkoutRequestSucces, placeOrder, placeOrderSuccess, placeOrderError
+} from "../actions/cart.actions";
 import { initialCartState } from "../state/cart.state";
 
 export const cartReducer = createReducer(
@@ -29,6 +30,39 @@ export const cartReducer = createReducer(
         }
     }),
 
+    on(placeOrderSuccess, (state) => ({
+        ...state,
+        status: 'success',
+        productOrders: [],
+        error: null
+    }
+
+    )),
+
+    on(placeOrderError, (state) => ({
+        ...state,
+        status: 'error',
+        error: 'error'
+    })),
+
+    on(checkoutRequest, (state) => ({
+        ...state,
+        status: 'loading',
+    }
+    )),
+
+    on(checkoutRequestSucces, (state) => ({
+        ...state,
+        productOrders: [],
+        status: 'success',
+        error: null,
+    })),
+
+    on(checkoutRequestError, (state) => ({
+        ...state,
+        status: 'error',
+        error: 'error',
+    })),
 )
 
 

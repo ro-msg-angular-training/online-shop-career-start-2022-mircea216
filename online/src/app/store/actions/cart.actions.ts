@@ -8,13 +8,17 @@ export const placeOrder = createAction(
 )
 
 export const placeOrderSuccess = createAction(
-    '[Order] Place Order',
-    props<{ response: string }>()
+    '[Order] Place Order Success',
+)
+
+export const placeOrderError = createAction(
+    '[Order] Place Order Error',
+    props<{ response: HttpErrorResponse }>()
 )
 
 export const checkoutRequest = createAction(
     '[Checkout] Checkout Success',
-    props<{ productOrder: ProductOrder }>()
+    props<{ productOrder: ProductOrder[] }>()
 )
 
 export const checkoutRequestSucces = createAction(
