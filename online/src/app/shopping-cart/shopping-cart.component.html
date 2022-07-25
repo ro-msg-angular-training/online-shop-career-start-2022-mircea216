@@ -1,5 +1,5 @@
 <p>shopping-cart works!</p>
 <div><button (click)="checkoutHandler()">CHECKOUT</button></div>
-<div *ngFor="let productOrder of products">
+<div *ngFor="let productOrder of content">
     <p>{{productOrder.name + " "+ productOrder.quantity}}</p>
 </div>

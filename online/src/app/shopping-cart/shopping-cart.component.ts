@@ -6,17 +6,21 @@ import { Store } from '@ngrx/store';
 import { AppState } from '../store/state/app.state';
 import { ordersSelector } from '../store/selectors/cart.selectors';
 import { take } from 'rxjs';
+import { ProductContentCart, ProductOrder } from 'src/order';
+import { getProduct } from '../store/actions/product.actions';
+import { selectOneProduct } from '../store/selectors/product.selectors';
 @Component({
   selector: 'app-shopping-cart',
   templateUrl: './shopping-cart.component.html',
   styleUrls: ['./shopping-cart.component.scss']
 })
 export class ShoppingCartComponent implements OnInit {
-  products: any = [];
-  productOrdersViewer: any = [];
+  products: ProductOrder[] = [];
+  productOrdersViewer: ProductOrder[] = [];
+  content: ProductContentCart[] = [];
   addedProduct: Product | undefined;
   orders$ = this.store.select(ordersSelector);
-
+  selectedProduct$ = this.store.select(selectOneProduct);
 
   constructor(private productService: ProductService, private location: Location,
     private store: Store<AppState>) { }
@@ -29,12 +33,17 @@ export class ShoppingCartComponent implements OnInit {
 
   getOrders(): void {
     for (let product of this.productOrdersViewer) {
-      console.log(product.productId);
-      let name = '';
-      this.productService.getProductById(product.productId).subscribe((item) => {
-        this.addedProduct = item
-        this.products.push({ name: this.addedProduct.name, quantity: product.quantity })
+      this.store.dispatch(getProduct({ id: product.productId }));
+      this.selectedProduct$.subscribe((item) => {
+        this.addedProduct = item;
+        if (this.addedProduct) {
+          const productOrder: ProductOrder = { productId: this.addedProduct.id, quantity: product.quantity };
+          this.products.push(productOrder);
+          const productContentCart: ProductContentCart = { name: this.addedProduct.name, quantity: product.quantity };
+          this.content.push(productContentCart);
+        }
       });
+
     }
   }
 
