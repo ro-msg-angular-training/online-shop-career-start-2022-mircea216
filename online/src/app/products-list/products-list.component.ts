@@ -4,6 +4,7 @@ import { ProductViewModel } from '../products';
 import { AuthentificationService } from '../services/authentification.service';
 import { ProductService } from '../services/product.service';
 import { loadProducts } from '../store/actions/product.actions';
+import { adminRoleSelector, customerRoleSelector } from '../store/selectors/auth.selectors';
 import { selectAllProducts } from '../store/selectors/product.selectors';
 import { AppState } from '../store/state/app.state';
 import { admin, customer } from '../utils';
@@ -18,15 +19,20 @@ export class ProductsListComponent implements OnInit {
   products: ProductViewModel[] | undefined;
   public allProducts$ = this.store.select(selectAllProducts);
 
-  hasCustomerRole = this.authService.hasRoleType(customer);
-  hasAdminRole = this.authService.hasRoleType(admin);
+  hasCustomerRole: boolean | undefined;
+  hasAdminRole: boolean | undefined;
+  adminRoleSelector = this.store.select(adminRoleSelector);
+  customerRoleSelector = this.store.select(customerRoleSelector);;
 
-  constructor(private productService: ProductService, private authService: AuthentificationService, private store:
-    Store<AppState>) { }
+
+  constructor(private productService: ProductService,
+    private store: Store<AppState>) { }
 
 
   ngOnInit(): void {
     this.store.dispatch(loadProducts());
+    this.adminRoleSelector.subscribe((role) => { this.hasAdminRole = role });
+    this.customerRoleSelector.subscribe((role) => { this.hasCustomerRole = role });
   }
 
   addToCartHandler(): void {

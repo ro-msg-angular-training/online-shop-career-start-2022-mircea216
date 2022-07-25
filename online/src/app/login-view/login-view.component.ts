@@ -1,8 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup } from '@angular/forms';
-import { AuthentificationService } from '../services/authentification.service';
 import { Credentials } from '../credentials';
-import { Router } from '@angular/router';
 import { AppState } from '../store/state/app.state';
 import { Store } from '@ngrx/store';
 import { login } from '../store/actions/auth.actions';

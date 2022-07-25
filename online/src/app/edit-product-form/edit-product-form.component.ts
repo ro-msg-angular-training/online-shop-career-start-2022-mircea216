@@ -22,7 +22,8 @@ export class EditProductFormComponent implements OnInit {
   constructor(
     private route: ActivatedRoute,
     private formBuilder: FormBuilder,
-    private location: Location, private store: Store<AppState>) { }
+    private location: Location,
+    private store: Store<AppState>) { }
 
   ngOnInit(): void {
     const id = this.route.snapshot.params['id'];

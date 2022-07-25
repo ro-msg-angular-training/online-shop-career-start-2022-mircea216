@@ -9,6 +9,7 @@ import { Store } from '@ngrx/store';
 import { AppState } from '../store/state/app.state';
 import { getProduct, removeProduct } from '../store/actions/product.actions';
 import { selectOneProduct } from '../store/selectors/product.selectors';
+import { adminRoleSelector } from '../store/selectors/auth.selectors';
 
 
 
@@ -20,13 +21,14 @@ import { selectOneProduct } from '../store/selectors/product.selectors';
 export class ProductDetailsComponent implements OnInit {
   id: number | undefined;
   products: ProductViewModel[] | undefined;
-  hasAdminRole = this.authService.hasRoleType(admin);
+  roleSelector = this.store.select(adminRoleSelector);
+  hasAdminRole: boolean | undefined;
   product: Product | undefined;
-  public selectedProduct$ = this.store.select(selectOneProduct);
+  selectedProduct$ = this.store.select(selectOneProduct);
 
 
   constructor(private location: Location,
-    private route: ActivatedRoute, private authService: AuthentificationService,
+    private route: ActivatedRoute,
     private store: Store<AppState>) {
 
   }
@@ -36,6 +38,7 @@ export class ProductDetailsComponent implements OnInit {
     if (this.id) {
       this.store.dispatch(getProduct({ id: this.id }));
     }
+    this.roleSelector.subscribe((role) => { this.hasAdminRole = role });
   }
 
   deleteProduct(): void {
