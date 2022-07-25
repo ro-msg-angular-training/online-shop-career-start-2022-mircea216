@@ -9,7 +9,8 @@ import { select, Store } from '@ngrx/store';
 import { AppState } from '../store/state/app.state';
 import { getProduct, removeProduct } from '../store/actions/product.actions';
 import { selectOneProduct } from '../store/selectors/product.selectors';
-import { Observable } from 'rxjs';
+import { Observable, Subscription } from 'rxjs';
+
 
 
 @Component({
@@ -19,10 +20,12 @@ import { Observable } from 'rxjs';
 })
 export class ProductDetailsComponent implements OnInit {
   id: number | undefined;
-  product: Product | undefined;
   products: ProductViewModel[] | undefined;
   item = this.store.select(selectOneProduct);
   hasAdminRole = this.authService.hasRoleType(admin);
+  subscriptionOfProduct: Subscription | undefined;
+  product: Product | undefined;
+
 
   constructor(private productService: ProductService, private location: Location,
     private route: ActivatedRoute, private authService: AuthentificationService,
@@ -32,33 +35,14 @@ export class ProductDetailsComponent implements OnInit {
 
   ngOnInit(): void {
     this.id = this.route.snapshot.params['id'];
-    // const item = this.store.select(selectOneProduct);
-    // if (this.id) {
-    //   this.store.dispatch(getProduct({ id: this.id }));
-    //   /// console.log(this.item);
-    //   /// item.pipe().subscribe((p) => this.product = p);
-    //   item.subscribe((p) => { this.product = p });
-    //   // this.clickedProduct$.subscribe((item) => {
-    //   //   console.log(item);
-    //   //   this.product = item;
-    //   // });
-    //   //console.log(this.clickedProduct$);
-    //   console.log(this.product);
-    //   console.log(this.id);
-    // }
-    // console.log(this.clickedProduct$);
-    // console.log("*");
-    // if (this.id) {
-    //   this.store.dispatch(getProduct({ id: this.id }));
-    //   /// console.log(this.clickedProduct$);
-    //   this.clickedProduct$.subscribe((item) => {
-    //     console.log('***');
-    //     this.product = item;
-    //   });
-    //   //console.log(this.product);
-    // }
-    if (this.id)
+    if (this.id) {
       this.getProductById(this.id).subscribe((item: Product) => this.product = item);
+      this.store.dispatch(getProduct({ id: this.id }))
+      this.subscriptionOfProduct = this.store.select(selectOneProduct).subscribe((data) => {
+        this.product = data;
+      }
+      );
+    }
   }
 
   getProductById(id: number): Observable<Product> {
