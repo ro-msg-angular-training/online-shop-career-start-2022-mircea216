@@ -1,13 +1,11 @@
 import { Component, OnInit } from '@angular/core';
 import { Store } from '@ngrx/store';
 import { ProductViewModel } from '../products';
-import { AuthentificationService } from '../services/authentification.service';
 import { ProductService } from '../services/product.service';
 import { loadProducts } from '../store/actions/product.actions';
 import { adminRoleSelector, customerRoleSelector } from '../store/selectors/auth.selectors';
 import { selectAllProducts } from '../store/selectors/product.selectors';
 import { AppState } from '../store/state/app.state';
-import { admin, customer } from '../utils';
 
 @Component({
   selector: 'app-products-list',

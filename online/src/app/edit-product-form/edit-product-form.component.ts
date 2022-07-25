@@ -2,8 +2,6 @@ import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { ActivatedRoute } from '@angular/router';
 import { Product } from '../products';
-import { take } from 'rxjs';
-import { ProductService } from '../services/product.service';
 import { Location } from '@angular/common'
 import { Store } from '@ngrx/store';
 import { AppState } from '../store/state/app.state';
