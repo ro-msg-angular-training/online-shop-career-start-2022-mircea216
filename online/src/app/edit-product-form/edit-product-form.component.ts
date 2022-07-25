@@ -7,7 +7,8 @@ import { ProductService } from '../services/product.service';
 import { Location } from '@angular/common'
 import { Store } from '@ngrx/store';
 import { AppState } from '../store/state/app.state';
-import { updateProduct } from '../store/actions/product.actions';
+import { getProduct, updateProduct } from '../store/actions/product.actions';
+import { selectOneProduct } from '../store/selectors/product.selectors';
 @Component({
   selector: 'app-edit-product-form',
   templateUrl: './edit-product-form.component.html',
@@ -16,12 +17,17 @@ import { updateProduct } from '../store/actions/product.actions';
 export class EditProductFormComponent implements OnInit {
   editForm: FormGroup | undefined;
   product: Product | undefined;
-  constructor(private productService: ProductService, private route: ActivatedRoute, private formBuilder: FormBuilder,
+  selectedProduct = this.store.select(selectOneProduct);
+
+  constructor(
+    private route: ActivatedRoute,
+    private formBuilder: FormBuilder,
     private location: Location, private store: Store<AppState>) { }
 
   ngOnInit(): void {
     const id = this.route.snapshot.params['id'];
-    this.productService.getProductById(id).pipe(take(1)).subscribe((item: Product) => {
+    this.store.dispatch(getProduct({ id: id }));
+    this.selectedProduct.subscribe((item) => {
       this.product = item;
       this.editForm = this.formBuilder.group({
         name: [this.editForm?.value.name, [Validators.required, Validators.minLength(3), Validators.maxLength(100)]],
@@ -44,11 +50,6 @@ export class EditProductFormComponent implements OnInit {
           this.store.dispatch(updateProduct({ product: this.product, id: this.product.id }));
           alert("You successfully updated your product details")
           this.goBack();
-          // this.productService.updateProduct(this.product, this.product.id).subscribe
-          //   (() => {
-          //     alert("You successfully updated your product details")
-          //     this.goBack();
-          //   });
         }
       } else {
         alert('Your data is not valid! Retry!')

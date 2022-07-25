@@ -1,6 +1,6 @@
 import { createReducer, on } from "@ngrx/store";
 import { initialState } from "../state/product.state";
-import { addProduct, removeProduct, loadProducts, loadProductsSuccess, loadProductsFailure, getProduct, updateProduct } from "../actions/product.actions";
+import { addProduct, removeProduct, loadProducts, loadProductsSuccess, loadProductsFailure, getProduct, updateProduct, getProductSucces } from "../actions/product.actions";
 
 export const productReducer = createReducer(
     initialState,
@@ -21,6 +21,15 @@ export const productReducer = createReducer(
         status: 'loading',
     }
     )),
+
+
+    on(getProductSucces, (state, { product }) => ({
+        ...state,
+        status: 'success',
+        selectedProduct: product
+    }
+    )),
+
 
     on(loadProducts, (state) => ({
         ...state,

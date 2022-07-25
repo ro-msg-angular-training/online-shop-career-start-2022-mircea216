@@ -75,17 +75,5 @@ export class ProductEffects {
             ),
         ),
     )
-
-    // createEffect(() =>
-    //     this.actions$.pipe(
-    //         ofType(getProduct),
-    //         switchMap((action) =>
-    //             from(this.productService.getProductById(action.id)).pipe(
-    //                 map((product) => getProductSucces({ product: product })),
-    //                 catchError((response) => of(getProductError({ response })))
-    //             )
-    //         )
-    //     ),
-    // );
 }
 

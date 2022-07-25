@@ -29,10 +29,6 @@ export class ProductsListComponent implements OnInit {
     this.store.dispatch(loadProducts());
   }
 
-  getProductsList(): void {
-    this.productService.getProducts().subscribe(products => this.products = products);
-  }
-
   addToCartHandler(): void {
     this.productService.addToCart(this.productID);
   }
