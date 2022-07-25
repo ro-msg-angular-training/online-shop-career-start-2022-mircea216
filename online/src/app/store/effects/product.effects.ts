@@ -1,7 +1,5 @@
 import { Injectable } from "@angular/core";
-import { Store } from "@ngrx/store";
 import { ProductService } from "src/app/services/product.service";
-import { AppState } from "../state/app.state";
 import { Actions, createEffect, ofType } from '@ngrx/effects';
 import {
     addProduct, addProductError, addProductSuccess, getProduct, updateProduct, updateProductError,
@@ -17,7 +15,6 @@ import { Product } from "src/app/products";
 export class ProductEffects {
     constructor(
         private actions$: Actions,
-        private store: Store<AppState>,
         private productService: ProductService
     ) { }
 
