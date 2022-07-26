@@ -1,4 +1,5 @@
 import { createFeatureSelector, createSelector } from "@ngrx/store";
+import { Product } from "src/app/products";
 import { AppState } from "../state/app.state";
 import { ProductState } from "../state/product.state";
 
@@ -14,3 +15,8 @@ export const selectOneProduct = createSelector(
     productsSelector,
     (state: ProductState) => state.selectedProduct
 )
+
+export const productSelectorById = (id: number) => createSelector(
+    selectProducts,
+    (state: ProductState) => <Product>state.products.find(product => product.id === id)
+);

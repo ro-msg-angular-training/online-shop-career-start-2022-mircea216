@@ -7,7 +7,7 @@ import { ordersSelector } from '../store/selectors/cart.selectors';
 import { take } from 'rxjs';
 import { ProductContentCart, ProductOrder } from 'src/order';
 import { getProduct } from '../store/actions/product.actions';
-import { selectOneProduct } from '../store/selectors/product.selectors';
+import { productSelectorById, selectOneProduct } from '../store/selectors/product.selectors';
 import { checkoutRequest } from '../store/actions/cart.actions';
 @Component({
   selector: 'app-shopping-cart',
@@ -33,8 +33,7 @@ export class ShoppingCartComponent implements OnInit {
 
   getOrders(): void {
     for (let product of this.productOrdersViewer) {
-      this.store.dispatch(getProduct({ id: product.productId }));
-      this.selectedProduct$.subscribe((item) => {
+      this.store.select(productSelectorById(product.productId)).pipe(take(1)).subscribe((item) => {
         this.addedProduct = item;
         if (this.addedProduct) {
           const productOrder: ProductOrder = { productId: this.addedProduct.id, quantity: product.quantity };
