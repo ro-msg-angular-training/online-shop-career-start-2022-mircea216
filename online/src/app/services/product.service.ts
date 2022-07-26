@@ -1,6 +1,6 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
-import { Observable } from 'rxjs';
+import { Observable, throwError } from 'rxjs';
 import { ProductOrder } from 'src/order';
 import { Product, ProductViewModel } from '../products';
 import { url } from '../utils';
@@ -29,7 +29,7 @@ export class ProductService {
       productOrders = [];
       return this.http.post(`${url}/orders`, data, { responseType: 'text' });
     }
-    return new Observable<string>();
+    else throw throwError('error');
   }
 
   updateProduct(product: Product, id: number): Observable<Product> {

@@ -14,18 +14,14 @@ export const cartReducer = createReducer(
                 ...state,
                 productOrders: [...state.productOrders, { productId: id, quantity: 1 }],
                 status: 'success',
-                error: "",
             };
         } else {
             const addedMultipleTimesProduct = { productId: id, quantity: placedOrder.quantity + 1 }
             return {
                 ...state,
-                productOrders: state.productOrders.map((item) => {
-                    return item.productId === id
-                        ? addedMultipleTimesProduct : item;
-                }),
+                productOrders: state.productOrders.map((item) => item.productId === id ? addedMultipleTimesProduct : item
+                ),
                 status: 'success',
-                error: "",
             };
         }
     }),

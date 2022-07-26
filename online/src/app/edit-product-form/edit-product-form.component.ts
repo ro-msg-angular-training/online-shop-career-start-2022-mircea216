@@ -25,7 +25,7 @@ export class EditProductFormComponent implements OnInit {
 
   ngOnInit(): void {
     const id = this.route.snapshot.params['id'];
-    this.store.dispatch(getProduct({ id: id }));
+    this.store.dispatch(getProduct({ id }));
     this.selectedProduct.subscribe((item) => {
       this.product = item;
       this.editForm = this.formBuilder.group({

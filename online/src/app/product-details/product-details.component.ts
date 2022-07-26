@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnDestroy, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { Product, ProductViewModel } from '../products';
 import { Location } from '@angular/common';
@@ -7,6 +7,7 @@ import { AppState } from '../store/state/app.state';
 import { getProduct, removeProduct } from '../store/actions/product.actions';
 import { selectOneProduct } from '../store/selectors/product.selectors';
 import { adminRoleSelector } from '../store/selectors/auth.selectors';
+import { Subscription } from 'rxjs';
 
 
 
@@ -15,14 +16,14 @@ import { adminRoleSelector } from '../store/selectors/auth.selectors';
   templateUrl: './product-details.component.html',
   styleUrls: ['./product-details.component.scss']
 })
-export class ProductDetailsComponent implements OnInit {
+export class ProductDetailsComponent implements OnInit, OnDestroy {
   id: number | undefined;
   products: ProductViewModel[] | undefined;
   roleSelector = this.store.select(adminRoleSelector);
   hasAdminRole: boolean | undefined;
   product: Product | undefined;
   selectedProduct$ = this.store.select(selectOneProduct);
-
+  roleSubscription$: Subscription | undefined;
 
   constructor(private location: Location,
     private route: ActivatedRoute,
@@ -35,7 +36,7 @@ export class ProductDetailsComponent implements OnInit {
     if (this.id) {
       this.store.dispatch(getProduct({ id: this.id }));
     }
-    this.roleSelector.subscribe((role) => { this.hasAdminRole = role });
+    this.roleSubscription$ = this.roleSelector.subscribe((role) => { this.hasAdminRole = role });
   }
 
   deleteProduct(): void {
@@ -48,5 +49,9 @@ export class ProductDetailsComponent implements OnInit {
 
   goBack(): void {
     this.location.back();
+  }
+
+  ngOnDestroy(): void {
+    this.roleSubscription$?.unsubscribe();
   }
 }
