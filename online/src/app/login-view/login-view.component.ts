@@ -1,8 +1,9 @@
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup } from '@angular/forms';
-import { AuthentificationService } from '../services/authentification.service';
 import { Credentials } from '../credentials';
-import { Router } from '@angular/router';
+import { AppState } from '../store/state/app.state';
+import { Store } from '@ngrx/store';
+import { login } from '../store/actions/auth.actions';
 
 @Component({
   selector: 'app-login-view',
@@ -13,8 +14,8 @@ export class LoginViewComponent implements OnInit {
   credentials: Credentials | undefined;
 
   loginForm: FormGroup | undefined;
-  constructor(private formBuilder: FormBuilder, private authentificationService: AuthentificationService,
-    private route: Router) { }
+  constructor(private formBuilder: FormBuilder,
+    private store: Store<AppState>) { }
 
   ngOnInit(): void {
     this.loginForm = this.formBuilder.group({
@@ -28,14 +29,7 @@ export class LoginViewComponent implements OnInit {
       username: this.loginForm?.value.username,
       password: this.loginForm?.value.password
     };
-    this.authentificationService.login(credentials).subscribe(
-      () => {
-        this.route.navigateByUrl(`/products`);
-      },
-      () => {
-        alert('The credentials you introduced do not exist');
-      }
-    );
+    this.store.dispatch(login({ credentials }));
   }
 
 }

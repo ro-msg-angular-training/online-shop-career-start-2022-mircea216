@@ -1,17 +1,18 @@
 <div class="header-cart">
-    <button class="cart" routerLink="/shopping-cart" *ngIf="hasCustomerRole">Cart</button>
-    <button class="add-product" (click)="addToCartHandler()" *ngIf="hasCustomerRole">Add to Cart</button>
-    <button routerLink="/add-product-form" class="insert-product" *ngIf="hasAdminRole">Insert Product</button>
+    <button mat-raised-button color="primary" class="cart" routerLink="/shopping-cart" *ngIf="hasCustomerRole"  i18n>Cart</button>
+    <button mat-raised-button color="primary" class="add-product" (click)="addToCartHandler()" *ngIf="hasCustomerRole"  i18n>Add to Cart</button>
+    <button mat-raised-button color="primary" routerLink="/add-product-form" class="insert-product" *ngIf="hasAdminRole"  i18n>Insert Product</button>
 </div>
-<div class="products-catalogue" *ngFor="let product of products">
+<div class="products-catalogue" *ngFor="let product of (allProducts$|async)">
     <div class="product-item" (click)="refreshID(product.id)">
         <a class="product-title" [title]="product.name + ' details'">
             {{ product.name }}
         </a>
-        <p class="product-category" *ngIf="product.category">
+        <p class="product-category" *ngIf="product.category"  i18n>
             Category: {{product.category}}
         </p>
         <img class="product-interface" src="assets/images/mac.jpg" alt="A great product" />
-        <button class="button-details" [routerLink]="['/', 'product', product.id]" type="button">Details</button>
+        <button mat-raised-button color="primary" class="button-details" [routerLink]="['/', 'product', product.id]"
+            type="button"  i18n>Details</button>
     </div>
 </div>

@@ -1,11 +1,14 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnDestroy, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
-import { Observable } from 'rxjs';
 import { Product, ProductViewModel } from '../products';
 import { Location } from '@angular/common';
-import { ProductService } from '../services/product.service';
-import { AuthentificationService } from '../services/authentification.service';
-import { admin } from '../utils';
+import { Store } from '@ngrx/store';
+import { AppState } from '../store/state/app.state';
+import { getProduct, removeProduct } from '../store/actions/product.actions';
+import { selectOneProduct } from '../store/selectors/product.selectors';
+import { adminRoleSelector } from '../store/selectors/auth.selectors';
+import { Subscription } from 'rxjs';
+
 
 
 @Component({
@@ -13,35 +16,42 @@ import { admin } from '../utils';
   templateUrl: './product-details.component.html',
   styleUrls: ['./product-details.component.scss']
 })
-export class ProductDetailsComponent implements OnInit {
-  product: Product | undefined;
+export class ProductDetailsComponent implements OnInit, OnDestroy {
+  id: number | undefined;
   products: ProductViewModel[] | undefined;
-  hasAdminRole = this.authService.hasRoleType(admin);
+  roleSelector = this.store.select(adminRoleSelector);
+  hasAdminRole: boolean | undefined;
+  product: Product | undefined;
+  selectedProduct$ = this.store.select(selectOneProduct);
+  roleSubscription$: Subscription | undefined;
 
-  constructor(private productService: ProductService, private location: Location, private route: ActivatedRoute, private authService: AuthentificationService) {
+  constructor(private location: Location,
+    private route: ActivatedRoute,
+    private store: Store<AppState>) {
 
   }
 
   ngOnInit(): void {
-    const id = this.route.snapshot.params['id'];
-    this.getProductById(id).subscribe((item: Product) => this.product = item);
+    this.id = this.route.snapshot.params['id'];
+    if (this.id) {
+      this.store.dispatch(getProduct({ id: this.id }));
+    }
+    this.roleSubscription$ = this.roleSelector.subscribe((role) => { this.hasAdminRole = role });
   }
 
-  getProductById(id: number): Observable<Product> {
-    return this.productService.getProductById(id);
-  }
-
-  deleteProduct(id: number): void {
-    this.productService.deleteProduct(id).subscribe(() => {
-      this.productService.getProducts().subscribe((products) => {
-        this.products = products;
-        alert(`The product with ID ${id} has been successfully deleted`);
-        this.goBack();
-      });
-    });
+  deleteProduct(): void {
+    if (this.id) {
+      this.store.dispatch(removeProduct({ id: this.id }))
+      alert(`The product with ID ${this.id} has been successfully deleted`);
+      this.goBack();
+    }
   }
 
   goBack(): void {
     this.location.back();
+  }
+
+  ngOnDestroy(): void {
+    this.roleSubscription$?.unsubscribe();
   }
 }

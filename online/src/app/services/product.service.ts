@@ -1,7 +1,7 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
-import { Observable } from 'rxjs';
-import { Order, ProductOrder } from 'src/order';
+import { Observable, throwError } from 'rxjs';
+import { ProductOrder } from 'src/order';
 import { Product, ProductViewModel } from '../products';
 import { url } from '../utils';
 
@@ -9,7 +9,6 @@ import { url } from '../utils';
   providedIn: 'root'
 })
 export class ProductService {
-  productOrders: ProductOrder[] = [];
   constructor(private http: HttpClient) { }
 
   getProducts() {
@@ -24,23 +23,13 @@ export class ProductService {
     return this.http.delete<void>(`${url}/products/${id}`);
   }
 
-  addToCart(productID: number): void {
-    let productOrders = this.productOrders.find(productOrder => productOrder.productId === productID);
-    if (productOrders === undefined) {
-      this.productOrders.push({ productId: productID, quantity: 1 });
-    } else {
-      productOrders.quantity += 1;
+  checkout(productOrders: ProductOrder[]): Observable<string> {
+    if (productOrders.length > 0) {
+      const data = { customer: localStorage.getItem('username'), products: productOrders };
+      productOrders = [];
+      return this.http.post(`${url}/orders`, data, { responseType: 'text' });
     }
-  }
-
-  getCartOrders(): ProductOrder[] {
-    return this.productOrders;
-  }
-
-  checkout(): Observable<string> {
-    const data = { customer: localStorage.getItem('username'), products: this.productOrders };
-    this.productOrders = [];
-    return this.http.post(`${url}/orders`, data, { responseType: 'text' });
+    else throw throwError('error');
   }
 
   updateProduct(product: Product, id: number): Observable<Product> {

@@ -1,15 +1,18 @@
-<div *ngIf="product">
+<div *ngIf="(selectedProduct$ | async) as product">
     <div class="container">
-        <h1>Product: {{product.name}}</h1>
+        <h1 i18n>Product: {{product.name}}</h1>
         <div>
-            <div>Name: {{product.name}}</div>
-            <div>Category: {{product.category}}</div>
-            <div><img src={{product.image}}></div>
-            <div>Description: {{product.description}}</div>
-            <div>Price: {{product.price}}</div>
+            <div i18n>Name: {{product.name}}</div>
+            <div i18n>Category: {{product.category}}</div>
+            <div i18n><img src={{product.image}}></div>
+            <div i18n>Description: {{product.description}}</div>
+            <div i18n>Price: {{product.price}}</div>
         </div>
-        <button class="remove" (click)="deleteProduct(product.id)" *ngIf="hasAdminRole">DELETE</button>
-        <button class="edit" [routerLink]="['/edit-product', product.id]" *ngIf="hasAdminRole">EDIT</button>
+        <br>
+        <div *ngIf="hasAdminRole">
+            <button mat-raised-button class="remove" (click)="deleteProduct()" i18n>DELETE</button>
+            <button mat-raised-button class="edit" [routerLink]="['/edit-product', product.id]" i18n>EDIT</button>
+        </div>
     </div>
 
 </div>
