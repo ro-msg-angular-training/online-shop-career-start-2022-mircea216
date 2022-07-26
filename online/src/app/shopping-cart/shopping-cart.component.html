@@ -1,4 +1,4 @@
-<div><button  mat-raised-button color="primary" (click)="checkoutHandler()">CHECKOUT</button></div>
+<div><button  mat-raised-button color="primary" (click)="checkoutHandler()" i18n>CHECKOUT</button></div>
 <div class="cart" *ngFor="let productOrder of content">
     <span class="name">{{"Name: " + " "+ productOrder.name}}</span>
     <br>
