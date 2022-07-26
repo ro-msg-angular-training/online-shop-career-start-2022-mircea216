@@ -1,4 +1,6 @@
-<div><button (click)="checkoutHandler()">CHECKOUT</button></div>
-<div *ngFor="let productOrder of content">
-    <p>{{productOrder.name + " "+ productOrder.quantity}}</p>
+<div><button  mat-raised-button color="primary" (click)="checkoutHandler()">CHECKOUT</button></div>
+<div class="cart" *ngFor="let productOrder of content">
+    <span class="name">{{"Name: " + " "+ productOrder.name}}</span>
+    <br>
+    <span class="quantity">{{ "Quantity: " + productOrder.quantity}}</span>
 </div>
