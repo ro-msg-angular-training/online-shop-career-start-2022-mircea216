@@ -1,7 +1,7 @@
 <div class="header-cart">
-    <button class="cart" routerLink="/shopping-cart" *ngIf="hasCustomerRole">Cart</button>
-    <button class="add-product" (click)="addToCartHandler()" *ngIf="hasCustomerRole">Add to Cart</button>
-    <button routerLink="/add-product-form" class="insert-product" *ngIf="hasAdminRole">Insert Product</button>
+    <button mat-raised-button color="primary" class="cart" routerLink="/shopping-cart" *ngIf="hasCustomerRole">Cart</button>
+    <button mat-raised-button color="primary" class="add-product" (click)="addToCartHandler()" *ngIf="hasCustomerRole">Add to Cart</button>
+    <button mat-raised-button color="primary" routerLink="/add-product-form" class="insert-product" *ngIf="hasAdminRole">Insert Product</button>
 </div>
 <div class="products-catalogue" *ngFor="let product of (allProducts$|async)">
     <div class="product-item" (click)="refreshID(product.id)">
@@ -12,6 +12,7 @@
             Category: {{product.category}}
         </p>
         <img class="product-interface" src="assets/images/mac.jpg" alt="A great product" />
-        <button class="button-details" [routerLink]="['/', 'product', product.id]" type="button">Details</button>
+        <button mat-raised-button color="primary" class="button-details" [routerLink]="['/', 'product', product.id]"
+            type="button">Details</button>
     </div>
 </div>

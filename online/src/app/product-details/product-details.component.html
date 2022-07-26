@@ -8,8 +8,9 @@
             <div>Description: {{product.description}}</div>
             <div>Price: {{product.price}}</div>
         </div>
-        <button class="remove" (click)="deleteProduct()" *ngIf="hasAdminRole">DELETE</button>
-        <button class="edit" [routerLink]="['/edit-product', product.id]" *ngIf="hasAdminRole">EDIT</button>
+        <br>
+        <button mat-raised-button class="remove" (click)="deleteProduct()" *ngIf="hasAdminRole">DELETE</button>
+        <button mat-raised-button class="edit" [routerLink]="['/edit-product', product.id]" *ngIf="hasAdminRole">EDIT</button>
     </div>
 
 </div>
